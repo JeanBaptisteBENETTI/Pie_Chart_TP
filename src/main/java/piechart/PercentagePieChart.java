@@ -30,7 +30,7 @@ abstract class InitState implements PieChartStateInterface {
     }
 }
 
-class InPinState implements PieState {
+class InPinState implements PieChartStateInterface {
     public void mousePressed(MouseEvent e, PercentagePieChart chart) {
         chart.setState(new AdjustingState());
         chart.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -49,7 +49,36 @@ class InPinState implements PieState {
     }
 }
 
+// Implémentation de l'état "Adjusting"
+class AdjustingState implements PieChartStateInterface {
+    public void mousePressed(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire dans cet état lorsqu'on appuie sur la souris
+    }
 
+    public void mouseReleased(MouseEvent e, PercentagePieChart chart) {
+        if (chart.inPin(e)) {
+            chart.setState(new InPinState());
+            chart.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+        } else {
+            chart.setState(new InitState());
+            chart.setCursor(Cursor.getDefaultCursor());
+        }
+        chart.repaint();
+    }
+
+    public void mouseDragged(MouseEvent e, PercentagePieChart chart) {
+        chart.myModel.setValue(chart.pointToPercentage(e));
+    }
+
+    public void mouseMoved(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire dans cet état lorsqu'on déplace la souris
+    }
+}
+
+
+public void setState(PieState state) {
+	currentState = state;
+}
 
 /**
  * A PercentagePieChart acts boths as a MVC View and Controller of a Percentage It maintains a reference to its model in order to
