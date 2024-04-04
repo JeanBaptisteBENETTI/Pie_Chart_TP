@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
-//import javax.swing.event.MouseInputListener;
+import javax.swing.event.MouseInputListener;
 
 //Implementation of State for Pie Chart
 
@@ -187,7 +187,7 @@ public class PercentagePieChart extends JComponent implements PercentageView {
 		myModel = model;
 		currentState = new InitState();
 
-		MouseInputAdapter mouseInputAdapter = new MouseInputAdapter() {
+		MouseInputListener mouseInputAdapter = new MouseInputAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				currentState.mousePressed(e, PercentagePieChart.this);
