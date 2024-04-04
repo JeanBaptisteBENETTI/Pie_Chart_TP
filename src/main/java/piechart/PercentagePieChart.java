@@ -6,6 +6,32 @@ import javax.swing.JComponent;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 
+//Implementation of State for Pie Chart
+
+abstract class InitState implements PieChartStateInterface {
+	public void mousePressed(MouseEvent e, PercentagePieChart chart) {
+		// Ne rien faire
+	}
+
+	public void mouseReleased(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire
+    }
+
+    public void mouseDragged(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire
+    }
+
+    public void mouseMoved(MouseEvent e, PercentagePieChart chart) {
+        if (chart.inPin(e)) {
+            chart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        } else {
+            chart.setCursor(Cursor.getDefaultCursor());
+        }
+    }
+}
+
+
+
 /**
  * A PercentagePieChart acts boths as a MVC View and Controller of a Percentage It maintains a reference to its model in order to
  * update it.
@@ -130,7 +156,7 @@ public class PercentagePieChart extends JComponent implements PercentageView {
 	/**
 	 * Test if a mouse event is inside the "Pin" that allows to change the percentage
 	 */
-	private boolean inPin(MouseEvent ev) {
+	public boolean inPin(MouseEvent ev) {
 		int mouseX = ev.getX();
 		int mouseY = ev.getY();
 		int centerX = this.getWidth() / 2;
