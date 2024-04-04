@@ -30,6 +30,25 @@ abstract class InitState implements PieChartStateInterface {
     }
 }
 
+class InPinState implements PieState {
+    public void mousePressed(MouseEvent e, PercentagePieChart chart) {
+        chart.setState(new AdjustingState());
+        chart.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+    }
+
+    public void mouseReleased(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire dans cet état lorsqu'on relâche la souris
+    }
+
+    public void mouseDragged(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire dans cet état lorsqu'on fait glisser la souris
+    }
+
+    public void mouseMoved(MouseEvent e, PercentagePieChart chart) {
+        // Ne rien faire dans cet état lorsqu'on déplace la souris
+    }
+}
+
 
 
 /**
